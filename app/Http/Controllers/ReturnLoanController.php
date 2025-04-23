@@ -102,8 +102,8 @@ class ReturnLoanController extends Controller
             'end_Date' => 'required|date|after_or_equal:start_Date',
             'status' => 'nullable|in:0,1,2',
             'status_return' => 'required|in:0,1',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'video' => 'nullable|mimes:mp4,mov,avi,wmv|max:15360',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1536000',
+            'video' => 'nullable|mimes:mp4,mov,avi,wmv|max:1536000',
             'existing_picture' => 'nullable|string',
             'existing_video' => 'nullable|string',
         ];

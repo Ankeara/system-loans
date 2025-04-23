@@ -27,8 +27,8 @@ class ClientController extends Controller
             'gender' => 'required',
             'phone_Number' => 'required|max:14',
             'address' => 'required',
-            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Made nullable if optional
-            'card_ID' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Made nullable if optional
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1536000', // Made nullable if optional
+            'card_ID' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1536000', // Made nullable if optional
         ], [
             'full_Name.required' => 'សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់។',
             'gender.required' => 'សូមជ្រើសរើសភេទអ្នកប្រើប្រាស់។',
@@ -99,8 +99,8 @@ class ClientController extends Controller
             'gender' => 'required',
             'phone_Number' => 'required|max:14',
             'address' => 'required',
-            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Made nullable if optional
-            'card_ID' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Made nullable if optional
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1536000', // Made nullable if optional
+            'card_ID' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1536000', // Made nullable if optional
         ], [
             'full_Name.required' => 'សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់។',
             'gender.required' => 'សូមជ្រើសរើសភេទអ្នកប្រើប្រាស់។',

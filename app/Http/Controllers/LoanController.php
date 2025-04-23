@@ -69,7 +69,7 @@ class LoanController extends Controller
             'payment_Amount_Dollar' => 'nullable|required_if:currency,dollar', // Updated validation
             'start_Date' => 'required',
             'end_Date' => 'required',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1536000',
             'video' => 'nullable|mimes:mp4,mov,avi,wmv|max:1536000',
         ], [
             'id_client' => 'សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់។',
@@ -180,7 +180,7 @@ class LoanController extends Controller
             'payment_Amount_Dollar' => 'nullable|required_if:currency,dollar', // Updated to match saveLoan
             'start_Date' => 'required',
             'end_Date' => 'required',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1536000',
             'video' => 'nullable|mimes:mp4,mov,avi,wmv|max:1536000', // Made nullable if optional
         ], [
             'id_client' => 'សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់។',
