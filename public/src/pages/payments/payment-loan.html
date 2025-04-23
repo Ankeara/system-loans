@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Page</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <style>
+        .checkbox-wrapper-55 input[type="checkbox"] {
+            visibility: hidden;
+            display: none;
+        }
+    
+        .checkbox-wrapper-55 *,
+        .checkbox-wrapper-55 ::after,
+        .checkbox-wrapper-55 ::before {
+            box-sizing: border-box;
+        }
+    
+        .checkbox-wrapper-55 .rocker {
+            display: inline-block;
+            position: relative;
+            font-size: 0.53125rem;
+            /* Adjusted to make 7em ≈ 60px (0.53125 * 16 * 7 ≈ 59.5px) */
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            color: #888;
+            width: 7em;
+            height: 4em;
+            overflow: hidden;
+            border-bottom: 0.5em solid #eee;
+        }
+    
+        .checkbox-wrapper-55 .rocker-small {
+            font-size: 0.53125rem;
+            /* Matches .rocker for consistency */
+        }
+    
+        .checkbox-wrapper-55 .rocker::before {
+            content: "";
+            position: absolute;
+            top: 0.5em;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #999;
+            border: 0.5em solid #eee;
+            border-bottom: 0;
+        }
+    
+        .checkbox-wrapper-55 .switch-left,
+        .checkbox-wrapper-55 .switch-right {
+            cursor: pointer;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.5em;
+            width: 3em;
+            transition: 0.2s;
+            user-select: none;
+        }
+    
+        .checkbox-wrapper-55 .switch-left {
+            height: 2.4em;
+            width: 2.75em;
+            left: 0.85em;
+            bottom: 0.4em;
+            background-color: #ddd;
+            transform: rotate(15deg) skewX(15deg);
+        }
+    
+        .checkbox-wrapper-55 .switch-right {
+            right: 0.5em;
+            bottom: 0;
+            background-color: #bd5757;
+            color: #fff;
+        }
+    
+        .checkbox-wrapper-55 .switch-left::before,
+        .checkbox-wrapper-55 .switch-right::before {
+            content: "";
+            position: absolute;
+            width: 0.4em;
+            height: 2.45em;
+            bottom: -0.45em;
+            background-color: #ccc;
+            transform: skewY(-65deg);
+        }
+    
+        .checkbox-wrapper-55 .switch-left::before {
+            left: -0.4em;
+        }
+    
+        .checkbox-wrapper-55 .switch-right::before {
+            right: -0.375em;
+            background-color: transparent;
+            transform: skewY(65deg);
+        }
+    
+        .checkbox-wrapper-55 input:checked+.switch-left {
+            background-color: #0d9488;
+            color: #fff;
+            bottom: 0px;
+            left: 0.5em;
+            height: 2.5em;
+            width: 3em;
+            transform: rotate(0deg) skewX(0deg);
+        }
+    
+        .checkbox-wrapper-55 input:checked+.switch-left::before {
+            background-color: transparent;
+            width: 3.0833em;
+        }
+    
+        .checkbox-wrapper-55 input:checked+.switch-left+.switch-right {
+            background-color: #ddd;
+            color: #888;
+            bottom: 0.4em;
+            right: 0.8em;
+            height: 2.4em;
+            width: 2.75em;
+            transform: rotate(-15deg) skewX(-15deg);
+        }
+    
+        .checkbox-wrapper-55 input:checked+.switch-left+.switch-right::before {
+            background-color: #ccc;
+        }
+    
+        /* Keyboard Users */
+        .checkbox-wrapper-55 input:focus+.switch-left {
+            color: #333;
+        }
+    
+        .checkbox-wrapper-55 input:checked:focus+.switch-left {
+            color: #fff;
+        }
+    
+        .checkbox-wrapper-55 input:focus+.switch-left+.switch-right {
+            color: #fff;
+        }
+    
+        .checkbox-wrapper-55 input:checked:focus+.switch-left+.switch-right {
+            color: #333;
+        }
+
+        .form-container {
+                                background-color: white;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                opacity: 0;
+                                transition: transform 0.3s ease-in-out;
+                            }
+                        
+                            .form-container.hidden {
+                                display: none;
+                            }
+                        
+                            .form-container.slide-in {
+                                opacity: 1;
+                            }
+                        
+                            .form-container.slide-out {
+                                opacity: 0;
+                            }
+        
+    </style>
+</head>
+
+<body class="min-h-screen bg-white">
+    <div class="flex h-screen">
+        <!-- Aside (Sidebar) -->
+        <aside class="aside w-64 flex-shrink-0 bg-gray-50 drop-shadow-md overflow-scroll">
+            <div class="flex h-full w-full flex-col justify-between">
+                <div class="px-4 py-6">
+                    <span
+                        class="sticky top-0 left-0 bg-gray-50 border-b z-[20] border-gray-100 flex items-center justify-center py-2 text-gray-600 font-bold text-3xl">
+                        ប្រាក់កម្ចី
+                    </span>
+        
+                    <ul class="mt-6 space-y-1 ">
+                        <!-- Home Item -->
+                        <li class="relative mt-4">
+                            <span class="absolute top-0 left-[-20px] w-3 h-full bg-teal-600 rounded"></span>
+                            <a href="../dashboard.html"
+                                class="flex items-center rounded-md bg-teal-600 px-3 py-2 text-sm font-medium text-white drop-shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24" fill="none"
+                                    width="20" height="20" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="currentColor">
+                                    <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                    <path d="M10 12h4v4h-4z"></path>
+                                </svg>
+                                ទំព័រដើម
+                            </a>
+                        </li>
+        
+                        <!-- Clients Item with Submenu -->
+                        <li class="relative mt-4 menu-item">
+                            <a href="#"
+                                class="flex items-center justify-between rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm toggle-btn"
+                                onclick="toggleSubmenu(event)">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20"
+                                        height="20" stroke-width="1.5">
+                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4c.267 0 .529 .026 .781 .076"></path>
+                                        <path d="M19 16l-2 3h4l-2 3"></path>
+                                    </svg>
+                                    អតិថិជន
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 transition-transform duration-300"
+                                    viewBox="0 0 20 20" fill="currentColor" id="chevron">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <!-- Submenu -->
+                            <ul class="submenu hidden transition-all duration-300 ease-in-out overflow-hidden ml-1 rounded-md">
+                                <li class="relative">
+                                    <a href="../clients/clients.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                            <path d="M15 19l2 2l4 -4"></path>
+                                        </svg>
+                                        បញ្ជីអតិថិជន
+                                    </a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../clients/add-client.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M16 19h6"></path>
+                                            <path d="M19 16v6"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                        </svg>
+                                        បន្ថែមអតិថិជន</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../clients/update-client.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5"></path>
+                                            <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z"></path>
+                                        </svg>
+                                        កែសម្រួលអតិថិជន</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="#"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path
+                                                d="M8.18 8.189a4.01 4.01 0 0 0 2.616 2.627m3.507 -.545a4 4 0 1 0 -5.59 -5.552">
+                                            </path>
+                                            <path
+                                                d="M6 21v-2a4 4 0 0 1 4 -4h4c.412 0 .81 .062 1.183 .178m2.633 2.618c.12 .38 .184 .785 .184 1.204v2">
+                                            </path>
+                                            <path d="M3 3l18 18"></path>
+                                        </svg>
+                                        លុបអតិថិជន</a>
+                                </li>
+                            </ul>
+                        </li>
+        
+                        <!-- Rest of the menu items -->
+                        <li class="relative mt-4 menu-item">
+                            <a href="#"
+                                class="flex items-center justify-between rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm toggle-btn"
+                                onclick="toggleSubmenu(event)">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="mr-1"
+                                        width="20" height="20" stroke-width="1.5">
+                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h3"></path>
+                                        <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"></path>
+                                        <path d="M19 21v1m0 -8v1"></path>
+                                    </svg>
+                                    អតិថិជនចងការប្រាក់
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 transition-transform duration-300"
+                                    viewBox="0 0 20 20" fill="currentColor" id="chevron">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <!-- Submenu -->
+                            <ul class="submenu hidden transition-all duration-300 ease-in-out overflow-hidden ml-1 rounded-md">
+                                <li class="relative">
+                                    <a href="../loans/loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                            <path d="M15 19l2 2l4 -4"></path>
+                                        </svg>
+                                        បញ្ជីអតិថិជនចងការប្រាក់
+                                    </a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../loans/add-loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M16 19h6"></path>
+                                            <path d="M19 16v6"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                        </svg>
+                                        បន្ថែមអតិថិជនចងការប្រាក់</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../loans/update-loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5"></path>
+                                            <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z"></path>
+                                        </svg>
+                                        កែសម្រួលអតិថិជនចងការប្រាក់</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="#"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path
+                                                d="M8.18 8.189a4.01 4.01 0 0 0 2.616 2.627m3.507 -.545a4 4 0 1 0 -5.59 -5.552">
+                                            </path>
+                                            <path
+                                                d="M6 21v-2a4 4 0 0 1 4 -4h4c.412 0 .81 .062 1.183 .178m2.633 2.618c.12 .38 .184 .785 .184 1.204v2">
+                                            </path>
+                                            <path d="M3 3l18 18"></path>
+                                        </svg>
+                                        លុបអតិថិជនចងការប្រាក់</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="relative mt-4" style="margin-top: 8px;">
+                            <a href="./payment-loan.html"
+                                class="flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm hover:bg-slate-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"
+                                    stroke-width="1.5">
+                                    <path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5">
+                                    </path>
+                                    <path d="M16 3v4"></path>
+                                    <path d="M8 3v4"></path>
+                                    <path d="M4 11h16"></path>
+                                    <path d="M19 22v-6"></path>
+                                    <path d="M22 19l-3 -3l-3 3"></path>
+                                </svg>
+                                ការឡើងការប្រាក់ប្រចាំ
+                            </a>
+                        </li>
+                        <li class="relative mt-4 menu-item">
+                            <a href="#"
+                                class="flex items-center justify-between rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm toggle-btn"
+                                onclick="toggleSubmenu(event)">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        width="20" height="20" stroke-width="1.5">
+                                        <path d="M12 19h-6a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5"></path>
+                                        <path d="M3 10h18"></path>
+                                        <path d="M7 15h.01"></path>
+                                        <path d="M11 15h2"></path>
+                                        <path d="M16 19h6"></path>
+                                        <path d="M19 16l-3 3l3 3"></path>
+                                    </svg>
+                                    ការបកទឹកប្រាក់
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 transition-transform duration-300"
+                                    viewBox="0 0 20 20" fill="currentColor" id="chevron">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <!-- Submenu -->
+                            <ul class="submenu hidden transition-all duration-300 ease-in-out overflow-hidden ml-1 rounded-md">
+                                <li class="relative">
+                                    <a href="../return-loans/return-loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                            <path d="M15 19l2 2l4 -4"></path>
+                                        </svg>
+                                        បញ្ជីអតិថិជនបកទឹកប្រាក់
+                                    </a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../return-loans/add-return-loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M16 19h6"></path>
+                                            <path d="M19 16v6"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                        </svg>
+                                        បន្ថែមអតិថិជនបកទឹកប្រាក់</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../return-loans/update-return-loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5"></path>
+                                            <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z"></path>
+                                        </svg>
+                                        កែសម្រួលអតិថិជនបកទឹកប្រាក់</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="#"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            class="mr-1 mt-[-3px]" width="20" height="20" stroke-width="1.5">
+                                            <path
+                                                d="M8.18 8.189a4.01 4.01 0 0 0 2.616 2.627m3.507 -.545a4 4 0 1 0 -5.59 -5.552">
+                                            </path>
+                                            <path
+                                                d="M6 21v-2a4 4 0 0 1 4 -4h4c.412 0 .81 .062 1.183 .178m2.633 2.618c.12 .38 .184 .785 .184 1.204v2">
+                                            </path>
+                                            <path d="M3 3l18 18"></path>
+                                        </svg>
+                                        លុបអតិថិជនបកទឹកប្រាក់</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="relative mt-4 menu-item">
+                            <a href="#"
+                                class="flex items-center justify-between rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm toggle-btn"
+                                onclick="toggleSubmenu(event)">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"
+                                        stroke-width="1.5">
+                                        <path d="M7 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                                        <path d="M7 3v4h4"></path>
+                                        <path d="M9 17l0 4"></path>
+                                        <path d="M17 14l0 7"></path>
+                                        <path d="M13 13l0 8"></path>
+                                        <path d="M21 12l0 9"></path>
+                                    </svg>
+                                    គ្រប់គ្រងរបាយការណ៍
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 transition-transform duration-300" viewBox="0 0 20 20"
+                                    fill="currentColor" id="chevron">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <!-- Submenu -->
+                            <ul class="submenu hidden transition-all duration-300 ease-in-out overflow-hidden ml-1 rounded-md">
+                                <li class="relative">
+                                    <a href="../reports/profits.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-linecap="round" stroke-linejoin="round" class="mr-1 mt-[-3px]" width="20" height="20"
+                                            stroke-width="1.5">
+                                            <path d="M7 9m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"></path>
+                                            <path d="M14 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                                            <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2"></path>
+                                        </svg>
+                                        បញ្ជីប្រាក់ចំណេញសរុប</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../reports/clients.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-linecap="round" stroke-linejoin="round" class="mr-1 mt-[-3px]" width="20" height="20"
+                                            stroke-width="1.5">
+                                            <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"></path>
+                                            <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M17 10h2a2 2 0 0 1 2 2v1"></path>
+                                            <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M3 13v-1a2 2 0 0 1 2 -2h2"></path>
+                                        </svg>
+                                        បញ្ជីអតិថិជនសរុប
+                                    </a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../reports/loans.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-linecap="round" stroke-linejoin="round" class="mr-1 mt-[-3px]" width="20" height="20"
+                                            stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h3"></path>
+                                            <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"></path>
+                                            <path d="M19 21v1m0 -8v1"></path>
+                                        </svg>
+                                        បញ្ជីអតិថិជនចងការទឹកប្រាក់សរុប</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../reports/return-loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-linecap="round" stroke-linejoin="round" class="mr-1 mt-[-3px]" width="20" height="20"
+                                            stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                            <path d="M19 22v-6"></path>
+                                            <path d="M22 19l-3 -3l-3 3"></path>
+                                        </svg>
+                                        បញ្ជីអតិថិជនបកទឹកប្រាក់សរុប</a>
+                                </li>
+                                <li class="relative">
+                                    <a href="../reports/high-loan.html"
+                                        class="flex items-center px-3 py-2 bg-white shadow-sm m-1 rounded text-xs text-gray-600 hover:bg-slate-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-linecap="round" stroke-linejoin="round" class="mr-1 mt-[-3px]" width="20" height="20"
+                                            stroke-width="1.5">
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h3"></path>
+                                            <path d="M16 22l5 -5"></path>
+                                            <path d="M21 21.5v-4.5h-4.5"></path>
+                                        </svg>
+                                        បញ្ជីអតិថិជនដែលចងការប្រាក់ច្រើនបំផុត</a>
+                                </li>
+                            </ul>
+                        </li>
+        
+                    </ul>
+                </div>
+                <div class="sticky inset-x-0 bottom-0 bg-gray-50 border-t border-gray-100">
+                    <div class="px-4 py-2">
+                        <a href="#"
+                            class="flex items-center rounded-md bg-red-500 px-3 py-2 text-sm font-medium text-white drop-shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-[-3px]" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"
+                                stroke-width="1.5">
+                                <path d="M19 19m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                <path d="M17 21l4 -4"></path>
+                                <path d="M19 12h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h5.5"></path>
+                                <path d="M9 21v-6a2 2 0 0 1 2 -2h2c.58 0 1.103 .247 1.468 .642"></path>
+                            </svg>
+                            បិទកម្មវិធី
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-auto">
+            <!-- Header -->
+            <header
+                class="sticky top-0 z-10 flex items-center justify-between drop-shadow-md h-16 flex-shrink-0 border-b border-gray-200 bg-white">
+                <div class="block">
+                    <button id="toggleSidebar" type="button"
+                        class="px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500">
+                        <span class="sr-only">Toggle sidebar</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+                        </svg>
+                    </button>
+                    <div class="flex items-center justify-between px-5">
+                        <span class="text-xl text-gray-600 hidden lg:block">ការបង់ការប្រាក់រាល់ថ្ងៃ</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center px-5">
+                    <span class="text-xl text-gray-600">អង្គារ៉ា</span>
+                    <img alt=""
+                        src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                        class="size-10 ml-4 shadow-md rounded-full object-cover" />
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="p-6 khmer__font">
+                <div class="flex items-center justify-between">
+                    <nav aria-label="Breadcrumb" class="">
+                        <ol class="flex items-center gap-1 text-sm text-gray-600">
+                            <li>
+                                <a href="../dashboard.html" class="block transition-colors text-teal-600 "> ទំព័រដើម </a>
+                            </li>
+                    
+                            <li class="rtl:rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 20.247 6-16.5" />
+                                </svg>
+                            </li>
+                    
+                            <li>
+                                <a href="#" class="block transition-colors hover:text-teal-500"> ការបង់ការប្រាក់រាល់ថ្ងៃ </a>
+                            </li>
+                        </ol>
+                    </nav>
+                    <a class="flex items-center w-auto rounded-md bg-teal-600 px-4 h-10 drop-shadow-md text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:ring-3 focus:outline-hidden"
+                        href="../dashboard.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" class="mr-1" width="20" height="20" stroke-width="1.5">
+                            <path d="M9 14l-4 -4l4 -4"></path>
+                            <path d="M5 10h11a4 4 0 1 1 0 8h-1"></path>
+                        </svg>
+                        ថយក្រោយ
+                    </a>
+                </div>
+                <div class="header__btn__search flex items-center justify-between mt-6">
+                    <span class="text-xl text-gray-600">អតិថិជនឡើងការប្រាក់ទាំងអស់</span>
+                    <div class="search__header flex items-center">
+                        <label for="Search">
+                            <div class="box__search relative w-[300px] mr-2">
+                                <span class="absolute inset-y-0 left-2 grid w-8 place-content-center">
+                                    <button type="button" aria-label="Submit"
+                                        class="rounded-full p-1.5 text-gray-700 transition-colors z-10 hover:bg-gray-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                            stroke="currentColor" class="size-4 text-gray-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                        </svg>
+                                    </button>
+                                </span>
+                                <input type="text" placeholder="ឈ្មោះអតិថិជន" id="Search" class="mt-0.5 w-full rounded-lg border-gray-200 px-10 h-10 text-sm drop-shadow border-none sm:text-sm focus:outline-none focus:ring-teal-500 focus:ring-2" />
+                            </div>
+                        </label>
+                        <a class="flex items-center rounded-md bg-teal-600 mt-2 px-4 h-10 text-sm drop-shadow font-medium text-white transition hover:scale-110 hover:shadow-xl focus:ring-3 focus:outline-hidden"
+                        href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" width="20" height="20" stroke-width="2">
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                <path d="M6 21v-2a4 4 0 0 1 4 -4h1.5"></path>
+                                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                <path d="M20.2 20.2l1.8 1.8"></path>
+                            </svg>
+                            ស្វែងរក
+                        </a>
+                        <a class="flex items-center rounded-md bg-red-500 mt-2 ml-2 px-4 h-10 text-sm drop-shadow font-medium text-white transition hover:scale-110 hover:shadow-xl focus:ring-3 focus:outline-hidden"
+                            href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" width="20" height="20" stroke-width="2">
+                                <path d="M18 6l-12 12"></path>
+                                <path d="M6 6l12 12"></path>
+                            </svg>
+                            សម្អាត
+                        </a>
+                    </div>
+                </div>
+                <div class=" mt-10">
+                    <div class="flex items-center-justify-between flex-wrap mb-6">
+                        <a href="./paid-payment-loan.html" class="flex items-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="mr-1 text-teal-600"
+                                width="12" height="12">
+                                <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                            </svg>
+                            <p class="mt-1 line-clamp-1 text-sm text-teal-600">អ្នកបានបង់ការប្រាក់សរុបថ្ងៃនេះ <span class="fon-bold ">(៣០ នាក់)</span></p>
+                        </a>
+                        <a href="./not-payment-loan.html" class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="mr-1 text-[#bd5757]"
+                                width="12" height="12">
+                                <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                            </svg>
+                            <p class="mt-1 line-clamp-1 text-sm text-[#bd5757]">អ្នកមិនទាន់បង់ការប្រាក់សរុបថ្ងៃនេះ <span class="fon-bold ">(៥ នាក់)</span></p>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 xl:grid-cols-6 2xl:gasm4 md:grid-cols-3 md:gap-4 lg:text-lg md:text-[18px] sm:text-[30px]">
+                        <div class="client__payment h-full w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        ថៃ បុនហ្វី
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/874158/pexels-photo-874158.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        សុខា មាស
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/834863/pexels-photo-834863.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        ចន្ថា ពេជ្រ
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/713312/pexels-photo-713312.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        រិទ្ធី សុវណ្ណ
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/371160/pexels-photo-371160.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        ស្រីនាង គីម
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        វុទ្ធា ហេង
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/457446/pexels-photo-457446.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        សុភា ងួន
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/948873/pexels-photo-948873.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        ដារ៉ា កែវ
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/715546/pexels-photo-715546.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        លក្ខិណា ឈឹម
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/832998/pexels-photo-832998.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        សំណាង ធន
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/769746/pexels-photo-769746.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        ភារុណ សុខ
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="client__payment h-auto w-full rounded relative container-div" onclick="toggleForm(event)">
+                            <article class="h-full w-full overflow-hidden rounded-[8px] shadow transition hover:shadow-sm relative">
+                                <!-- Form input first in the code -->
+                                <form class="w-full h-full p-4 bg-white absolute top-0 left-0 hidden form-container z-10">
+                                    <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                        onclick="closeForm(event)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                    <div class="mb-[3px]">
+                                        <label for="userInput" class="block text-[10px] font-medium text-gray-800">បញ្ចូលទិន្នន័យ</label>
+                                        <input type="text" id="userInput" name="userInput"
+                                            class="w-full h-8 rounded-sm border-gray-200 px-2 text-[10px] placeholder:text-[10px] drop-shadow border-none sm:text-[10px] focus:outline-none focus:ring-teal-500 focus:ring-2"
+                                            placeholder="បញ្ចូលព័ត៌មាននៅទីនេះ" onkeypress="handleInput(event)">
+                                    </div>
+                                </form>
+                        
+                                <img alt="Sample image"
+                                    src="https://images.pexels.com/photos/794064/pexels-photo-794064.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    class="w-full h-[60%] object-cover" />
+                        
+                                <div class="bg-white p-4 relative sm:p-2 w-full h-[40%]">
+                                    <h1 class="line-clamp-3 text-sm text-gray-600 xl:text-lg lg:text-lg md:text-[18px] sm:text-[30px]">
+                                        បុប្ផា លឹម
+                                    </h1>
+                                    <div class="flex items-center mt-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="mr-1 text-[#bd5757]" width="12" height="12">
+                                            <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z"></path>
+                                        </svg>
+                                        <p class="mt-1 line-clamp-1 text-xs text-[#bd5757]">មិនទាន់បង់ការប្រាក់</p>
+                                    </div>
+                                    <div class="absolute top-2 right-2" onclick="event.stopPropagation()">
+                                        <div class="checkbox-wrapper-55">
+                                            <label class="rocker rocker-small">
+                                                <input type="checkbox">
+                                                <span class="switch-left">បាន</span>
+                                                <span class="switch-right">អត់</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+</body>
+<!-- Tailwind CDN link -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Chart CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Customer Js -->
+<script src="../../scripts/app.js"></script>
+ <script>
+    function toggleForm(event) {
+        if (event.target.tagName === 'INPUT' && event.target.type !== 'checkbox') return;
+
+        const container = event.currentTarget;
+        const form = container.querySelector('.form-container');
+        form.classList.toggle('hidden');
+        form.classList.toggle('slide-in');
+    }
+
+    function handleInput(event) {
+        event.stopPropagation();
+        if (event.key === 'Enter') {
+            closeForm(event);
+        }
+    }
+
+    function closeForm(event) {
+        event.stopPropagation();
+        const form = event.target.closest('.form-container');
+        form.classList.remove('slide-in');
+        form.classList.add('slide-out');
+        setTimeout(() => {
+            form.classList.add('hidden');
+            form.classList.remove('slide-out');
+        }, 300);
+    }
+    </script>
+</html>

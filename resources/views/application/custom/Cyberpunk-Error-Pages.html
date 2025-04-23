@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Error Pages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Animations */
+        @keyframes holo-shift {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1) translateZ(-30px);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.07) translateZ(-30px);
+            }
+        }
+
+        .animate-holo-shift {
+            animation: holo-shift 7s ease-in-out infinite;
+        }
+
+        @keyframes holo-pulse {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.07);
+            }
+        }
+
+        .animate-holo-pulse {
+            animation: holo-pulse 3.5s ease-in-out infinite;
+        }
+
+        @keyframes neon-flicker {
+
+            0%,
+            100% {
+                opacity: 1;
+                filter: drop-shadow(0 0 10px currentColor);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                opacity: 0.9;
+                filter: drop-shadow(0 0 15px currentColor);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                opacity: 1;
+                filter: drop-shadow(0 0 20px currentColor);
+            }
+        }
+
+        .animate-neon-flicker {
+            animation: neon-flicker 2s infinite;
+        }
+
+        @keyframes neon-glow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 15px currentColor);
+                background-position: 0% 50%;
+            }
+
+            50% {
+                filter: drop-shadow(0 0 25px currentColor);
+                background-position: 100% 50%;
+            }
+        }
+
+        .animate-neon-glow {
+            animation: neon-glow 5s ease infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes grid-flow {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        .animate-grid-flow {
+            animation: grid-flow 30s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%) translateZ(-20px);
+            }
+
+            100% {
+                transform: translateY(100%) translateZ(-20px);
+            }
+        }
+
+        .animate-scanline {
+            animation: scanline 6s linear infinite;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .animate-progress {
+            animation: progress 9s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -200%;
+            }
+
+            100% {
+                left: 200%;
+            }
+        }
+
+        .animate-shine {
+            animation: shine 3.5s linear infinite;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fade-in 0.5s ease-out forwards;
+        }
+
+        @keyframes data-corrupt {
+
+            0%,
+            100% {
+                transform: skew(0deg);
+                opacity: 1;
+            }
+
+            20% {
+                transform: skew(2deg);
+                opacity: 0.8;
+            }
+
+            40% {
+                transform: skew(-2deg);
+                opacity: 0.9;
+            }
+
+            60% {
+                transform: skew(1deg);
+                opacity: 0.7;
+            }
+
+            80% {
+                transform: skew(-1deg);
+                opacity: 0.85;
+            }
+        }
+
+        .animate-data-corrupt {
+            animation: data-corrupt 1.5s infinite;
+        }
+
+        /* Styles */
+        .shadow-holo {
+            box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.6), -20px -20px 40px rgba(255, 255, 255, 0.06), inset 0 0 20px rgba(79, 70, 229, 0.25);
+        }
+
+        .shadow-holo-inset {
+            box-shadow: inset 15px 15px 30px rgba(0, 0, 0, 0.6), inset -15px -15px 30px rgba(255, 255, 255, 0.06), 0 0 20px rgba(239, 68, 68, 0.25);
+        }
+
+        .shadow-neon {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.7), 0 0 60px rgba(59, 130, 246, 0.4);
+        }
+
+        .bg-neon-grid {
+            background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.9) 0%, rgba(79, 70, 229, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease;
+        }
+
+        #cursor-404 {
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.9) 0%, rgba(79, 70, 229, 0) 70%);
+        }
+
+        #cursor-403 {
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.9) 0%, rgba(239, 68, 68, 0) 70%);
+        }
+
+        #cursor-500 {
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.9) 0%, rgba(34, 211, 238, 0) 70%);
+        }
+
+        #cursor-503 {
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.9) 0%, rgba(234, 179, 8, 0) 70%);
+        }
+
+        #cursor-422 {
+            background: radial-gradient(circle, rgba(101, 163, 13, 0.9) 0%, rgba(101, 163, 13, 0) 70%);
+        }
+
+        /* Theme Adjustments */
+        [data-theme="light"] .text-white {
+            color: #1F2937;
+        }
+
+        [data-theme="light"] .text-indigo-300 {
+            color: #4B5EAA;
+        }
+
+        [data-theme="light"] .text-indigo-400 {
+            color: #6B7280;
+        }
+
+        [data-theme="light"] .text-red-300 {
+            color: #991B1B;
+        }
+
+        [data-theme="light"] .text-red-400 {
+            color: #B91C1C;
+        }
+
+        [data-theme="light"] .text-blue-300 {
+            color: #1E40AF;
+        }
+
+        [data-theme="light"] .text-blue-400 {
+            color: #1E3A8A;
+        }
+
+        [data-theme="light"] .text-yellow-300 {
+            color: #92400E;
+        }
+
+        [data-theme="light"] .text-yellow-400 {
+            color: #B45309;
+        }
+
+        [data-theme="light"] .text-green-300 {
+            color: #3D6215;
+        }
+
+        [data-theme="light"] .text-green-400 {
+            color: #4D7C0F;
+        }
+
+        /* Submenu */
+        .submenu-btn.active {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white font-sans transition-colors duration-700" data-theme="dark">
+    <!-- Submenu -->
+    <div
+        class="fixed top-0 left-0 w-64 h-full bg-black/40 backdrop-blur-2xl shadow-holo border-r border-gray-800/50 z-50">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold text-indigo-400 mb-8 animate-neon-glow">Error Grid</h2>
+            <ul class="space-y-4">
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-black/50 hover:bg-black/70 text-indigo-300 hover:text-indigo-200 transition duration-300 border border-indigo-500/30"
+                        data-page="error-404">404</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-black/50 hover:bg-black/70 text-red-300 hover:text-red-200 transition duration-300 border border-red-500/30"
+                        data-page="error-403">403</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-black/50 hover:bg-black/70 text-blue-300 hover:text-blue-200 transition duration-300 border border-blue-500/30"
+                        data-page="error-500">500</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-black/50 hover:bg-black/70 text-yellow-300 hover:text-yellow-200 transition duration-300 border border-yellow-500/30"
+                        data-page="error-503">503</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-black/50 hover:bg-black/70 text-green-300 hover:text-green-200 transition duration-300 border border-green-500/30"
+                        data-page="error-422">422</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Error Pages -->
+    <div class="ml-64 relative min-h-screen">
+        <!-- 404 Page Not Found -->
+        <div class="error-page hidden min-h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-404">
+            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-950/80 to-black opacity-95">
+                <div class="w-full h-full bg-neon-grid animate-grid-flow"
+                    style="--grid-color: rgba(99, 102, 241, 0.15);"></div>
+                <div class="absolute inset-0 bg-indigo-500/10 animate-scanline transform -translate-z-20"
+                    style="transform: translateZ(-20px);"></div>
+                <div class="absolute inset-0 bg-indigo-900/20 animate-holo-shift transform -translate-z-30"
+                    style="transform: translateZ(-30px);"></div>
+            </div>
+            <div
+                class="relative z-10 bg-black/25 backdrop-blur-3xl p-12 rounded-3xl shadow-holo transform hover:-translate-y-4 hover:rotate-1 transition-all duration-1000 border border-indigo-500/30">
+                <svg class="w-40 h-40 text-indigo-500 mb-8 animate-neon-flicker cursor-pointer mx-auto transform hover:scale-115 hover:rotate-12 transition duration-700"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    onclick="playSound('whoosh'); speak('Page not found')">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h1
+                    class="text-10xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 tracking-widest animate-neon-glow">
+                    404</h1>
+                <div class="bg-indigo-800/60 px-5 py-2 text-base rounded-full rotate-12 absolute top-8 right-8 transform hover:-rotate-12 hover:scale-115 transition duration-700 cursor-pointer backdrop-blur-md border border-indigo-400/50 animate-holo-pulse"
+                    onclick="triggerConfetti()">
+                    <span class="text-white font-semibold tracking-tight">Page Not Found</span>
+                </div>
+                <p class="text-4xl text-indigo-300 mt-10 animate-pulse font-light tracking-wider">Lost in the Grid?</p>
+                <p class="mt-6 text-indigo-400/70 max-w-lg text-center font-mono text-lg">This data stream has
+                    evaporated</p>
+                <div class="mt-12 flex space-x-10">
+                    <a href="/"
+                        class="bg-gradient-to-r from-indigo-700 to-purple-700 hover:from-indigo-800 hover:to-purple-800 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon shadow-indigo-600/50 border border-indigo-500/40"
+                        onclick="playSound('click')">Sync Home</a>
+                    <button onclick="history.back(); playSound('whoosh')"
+                        class="bg-black/50 hover:bg-black/60 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon backdrop-blur-md border border-indigo-400/50">Retrace</button>
+                </div>
+            </div>
+            <div class="custom-cursor" id="cursor-404"></div>
+        </div>
+
+        <!-- 403 Forbidden -->
+        <div class="error-page hidden min-h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-403">
+            <div class="absolute inset-0 bg-gradient-to-tr from-red-950/80 to-black opacity-95">
+                <div class="w-full h-full bg-neon-grid animate-grid-flow"
+                    style="--grid-color: rgba(239, 68, 68, 0.15);"></div>
+                <div class="absolute inset-0 bg-red-600/10 animate-scanline transform -translate-z-20"
+                    style="transform: translateZ(-20px);"></div>
+                <div class="absolute inset-0 bg-red-900/20 animate-holo-shift transform -translate-z-30"
+                    style="transform: translateZ(-30px);"></div>
+            </div>
+            <div
+                class="relative z-10 bg-black/25 backdrop-blur-3xl p-12 rounded-3xl shadow-holo-inset transform hover:-translate-y-4 hover:-rotate-1 transition-all duration-1000 border border-red-500/30">
+                <svg class="w-40 h-40 text-red-500 mb-8 animate-neon-flicker cursor-pointer mx-auto transform hover:scale-115 hover:-rotate-6 transition duration-700"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    onclick="playSound('alert'); speak('Access denied')">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                </svg>
+                <div class="relative">
+                    <h1
+                        class="text-10xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-600 tracking-widest animate-neon-glow">
+                        403</h1>
+                    <div class="bg-red-800/60 px-5 py-2 text-base rounded-full -rotate-12 absolute top-8 right-8 transform hover:scale-115 hover:rotate-0 transition duration-700 cursor-pointer backdrop-blur-md border border-red-400/50 animate-holo-pulse"
+                        onclick="playSound('denied')">
+                        <span class="text-white font-semibold tracking-tight">Forbidden</span>
+                    </div>
+                </div>
+                <p class="text-4xl text-red-300 mt-10 animate-bounce font-light tracking-wider">Access Blocked!</p>
+                <p class="mt-6 text-red-400/70 max-w-lg text-center font-mono text-lg">The firewall has severed your
+                    link</p>
+                <a href="/"
+                    class="mt-12 inline-block bg-gradient-to-r from-red-700 to-pink-700 hover:from-red-800 hover:to-pink-800 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon shadow-red-600/50 border border-red-500/40"
+                    onclick="playSound('click')">Abort</a>
+            </div>
+            <div class="custom-cursor" id="cursor-403"></div>
+        </div>
+
+        <!-- 500 Internal Server Error -->
+        <div class="error-page hidden min-h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-500">
+            <div class="absolute inset-0 bg-gradient-to-tr from-blue-950/80 to-black opacity-95">
+                <div class="w-full h-full bg-neon-grid animate-grid-flow"
+                    style="--grid-color: rgba(34, 211, 238, 0.15);"></div>
+                <div class="absolute inset-0 bg-blue-600/10 animate-scanline transform -translate-z-20"
+                    style="transform: translateZ(-20px);"></div>
+                <div class="absolute inset-0 bg-blue-900/20 animate-holo-shift transform -translate-z-30"
+                    style="transform: translateZ(-30px);"></div>
+            </div>
+            <div
+                class="relative z-10 bg-black/25 backdrop-blur-3xl p-12 rounded-3xl shadow-holo transform hover:-translate-y-4 hover:rotate-1 transition-all duration-1000 border border-blue-500/30">
+                <svg class="w-40 h-40 text-blue-500 mb-8 animate-neon-flicker cursor-pointer mx-auto transform hover:scale-115 hover:rotate-6 transition duration-700"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    onclick="playSound('error'); speak('Server error')">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <h1
+                    class="text-10xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-cyan-500 to-green-600 tracking-widest animate-neon-glow">
+                    500</h1>
+                <p class="text-4xl text-blue-300 mt-10 font-light tracking-wider">System Crash!</p>
+                <p class="mt-6 text-blue-400/70 max-w-lg text-center font-mono text-lg">The core has gone offline</p>
+                <div class="mt-12 flex space-x-10">
+                    <a href="/"
+                        class="bg-gradient-to-r from-blue-700 to-cyan-700 hover:from-blue-800 hover:to-cyan-800 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon shadow-blue-600/50 border border-blue-500/40"
+                        onclick="playSound('click')">Restart</a>
+                    <button onclick="location.reload(); playSound('reload')"
+                        class="bg-black/50 hover:bg-black/60 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon backdrop-blur-md border border-blue-400/50">Reboot</button>
+                </div>
+            </div>
+            <div class="custom-cursor" id="cursor-500"></div>
+        </div>
+
+        <!-- 503 Service Unavailable -->
+        <div class="error-page hidden min-h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-503">
+            <div class="absolute inset-0 bg-gradient-to-tr from-yellow-950/80 to-black opacity-95">
+                <div class="w-full h-full bg-neon-grid animate-grid-flow"
+                    style="--grid-color: rgba(234, 179, 8, 0.15);"></div>
+                <div class="absolute inset-0 bg-yellow-600/10 animate-scanline transform -translate-z-20"
+                    style="transform: translateZ(-20px);"></div>
+                <div class="absolute inset-0 bg-yellow-900/20 animate-holo-shift transform -translate-z-30"
+                    style="transform: translateZ(-30px);"></div>
+            </div>
+            <div
+                class="relative z-10 bg-black/25 backdrop-blur-3xl p-12 rounded-3xl shadow-holo-inset transform hover:-translate-y-4 hover:-rotate-1 transition-all duration-1000 border border-yellow-500/30">
+                <svg class="w-40 h-40 text-yellow-500 mb-8 animate-neon-flicker cursor-pointer mx-auto transform hover:scale-115 hover:-rotate-6 transition duration-700"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    onclick="playSound('gear'); speak('Service unavailable')">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <div class="relative">
+                    <h1
+                        class="text-10xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-600 tracking-widest animate-neon-glow">
+                        503</h1>
+                    <div class="bg-yellow-800/60 px-5 py-2 text-base rounded-full rotate-6 absolute bottom-8 right-8 transform hover:-rotate-6 hover:scale-115 transition duration-700 cursor-pointer backdrop-blur-md border border-yellow-400/50 animate-holo-pulse"
+                        onclick="playSound('hammer')">
+                        <span class="text-white font-semibold tracking-tight">Service Unavailable</span>
+                    </div>
+                </div>
+                <p class="text-4xl text-yellow-300 mt-10 font-light tracking-wider">Grid Maintenance</p>
+                <p class="mt-6 text-yellow-400/70 max-w-lg text-center font-mono text-lg">Nodes are being recalibrated
+                </p>
+                <div class="mt-12 flex flex-col items-center space-y-10">
+                    <div
+                        class="w-96 h-5 bg-black/50 rounded-full overflow-hidden shadow-inner border border-yellow-600/40">
+                        <div class="h-full bg-gradient-to-r from-yellow-500 to-orange-600 animate-progress relative">
+                            <div class="absolute inset-0 bg-white/40 animate-shine"></div>
+                        </div>
+                    </div>
+                    <a href="/"
+                        class="bg-gradient-to-r from-yellow-700 to-orange-700 hover:from-yellow-800 hover:to-orange-800 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon shadow-yellow-600/50 border border-yellow-500/40"
+                        onclick="playSound('click')">Reroute</a>
+                </div>
+            </div>
+            <div class="custom-cursor" id="cursor-503"></div>
+        </div>
+
+        <!-- 422 Unprocessable Entity -->
+        <div class="error-page hidden min-h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-422">
+            <div class="absolute inset-0 bg-gradient-to-tr from-green-950/80 to-black opacity-95">
+                <div class="w-full h-full bg-neon-grid animate-grid-flow"
+                    style="--grid-color: rgba(101, 163, 13, 0.15);"></div>
+                <div class="absolute inset-0 bg-green-600/10 animate-scanline transform -translate-z-20"
+                    style="transform: translateZ(-20px);"></div>
+                <div class="absolute inset-0 bg-green-900/20 animate-holo-shift transform -translate-z-30"
+                    style="transform: translateZ(-30px);"></div>
+            </div>
+            <div
+                class="relative z-10 bg-black/25 backdrop-blur-3xl p-12 rounded-3xl shadow-holo transform hover:-translate-y-4 hover:rotate-1 transition-all duration-1000 border border-green-500/30">
+                <svg class="w-40 h-40 text-green-500 mb-8 animate-neon-flicker cursor-pointer mx-auto transform hover:scale-115 hover:-rotate-6 transition duration-700"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    onclick="playSound('error'); speak('Unprocessable entity')">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01M9.172 15.829a4 4 0 115.656-5.656M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="relative">
+                    <h1
+                        class="text-10xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-500 via-lime-500 to-yellow-600 tracking-widest animate-neon-glow animate-data-corrupt">
+                        422</h1>
+                    <div class="bg-green-800/60 px-5 py-2 text-base rounded-full rotate-6 absolute top-8 right-8 transform hover:-rotate-6 hover:scale-115 transition duration-700 cursor-pointer backdrop-blur-md border border-green-400/50 animate-holo-pulse"
+                        onclick="triggerConfetti()">
+                        <span class="text-white font-semibold tracking-tight">Unprocessable Entity</span>
+                    </div>
+                </div>
+                <p class="text-4xl text-green-300 mt-10 animate-pulse font-light tracking-wider">Data Corruption!</p>
+                <p class="mt-6 text-green-400/70 max-w-lg text-center font-mono text-lg">Invalid input has scrambled the
+                    system</p>
+                <div class="mt-12 flex space-x-10">
+                    <a href="/"
+                        class="bg-gradient-to-r from-green-700 to-lime-700 hover:from-green-800 hover:to-lime-800 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon shadow-green-600/50 border border-green-500/40"
+                        onclick="playSound('click')">Reset Input</a>
+                    <button onclick="history.back(); playSound('whoosh')"
+                        class="bg-black/50 hover:bg-black/60 text-white font-bold py-5 px-12 rounded-full transition duration-700 transform hover:-translate-y-3 hover:shadow-neon backdrop-blur-md border border-green-400/50">Revert</button>
+                </div>
+            </div>
+            <div class="custom-cursor" id="cursor-422"></div>
+        </div>
+    </div>
+
+    <script>
+        // Submenu Logic
+        const submenuButtons = document.querySelectorAll('.submenu-btn');
+        const errorPages = document.querySelectorAll('.error-page');
+
+        submenuButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetPage = button.getAttribute('data-page');
+
+                // Hide all pages and remove active class
+                errorPages.forEach(page => page.classList.add('hidden'));
+                submenuButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Show target page and add active class
+                const pageToShow = document.getElementById(targetPage);
+                pageToShow.classList.remove('hidden');
+                pageToShow.classList.add('fade-in');
+                button.classList.add('active');
+
+                // Remove fade-in class after animation
+                setTimeout(() => pageToShow.classList.remove('fade-in'), 500);
+            });
+        });
+
+        // Show 404 by default
+        document.getElementById('error-404').classList.remove('hidden');
+        document.querySelector('[data-page="error-404"]').classList.add('active');
+
+        // Custom Cursor
+        document.querySelectorAll('.custom-cursor').forEach(cursor => {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+        });
+
+        // Sound Effects (replace with your own URLs)
+        const sounds = {
+            whoosh: new Audio('https://www.myinstants.com/media/sounds/swoosh.mp3'),
+            click: new Audio('https://www.myinstants.com/media/sounds/click.mp3'),
+            alert: new Audio('https://www.myinstants.com/media/sounds/alert.mp3'),
+            denied: new Audio('https://www.myinstants.com/media/sounds/access-denied.mp3'),
+            error: new Audio('https://www.myinstants.com/media/sounds/error.mp3'),
+            reload: new Audio('https://www.myinstants.com/media/sounds/reload.mp3'),
+            gear: new Audio('https://www.myinstants.com/media/sounds/gear.mp3'),
+            hammer: new Audio('https://www.myinstants.com/media/sounds/hammer.mp3')
+        };
+        function playSound(sound) {
+            sounds[sound]?.play();
+        }
+
+        // Voice Feedback
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.pitch = 1.3;
+                utterance.rate = 1.2;
+                utterance.volume = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Enhanced Confetti
+        function triggerConfetti() {
+            confetti({
+                particleCount: 300,
+                spread: 140,
+                origin: { y: 0.6 },
+                colors: ['#4F46E5', '#818CF8', '#C7D2FE', '#A5B4FC', '#EC4899', '#F472B6'],
+                shapes: ['star', 'circle', 'square', 'triangle'],
+                scalar: 2,
+                zIndex: 1000
+            });
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            if (body.dataset.theme === 'dark') {
+                body.dataset.theme = 'light';
+                body.classList.remove('bg-black');
+                body.classList.add('bg-gray-200');
+            } else {
+                body.dataset.theme = 'dark';
+                body.classList.remove('bg-gray-200');
+                body.classList.add('bg-black');
+            }
+        }
+    </script>
+</body>
+
+</html>

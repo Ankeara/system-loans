@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Error Pages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes spin-slow {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 4s linear infinite;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(-3deg);
+            }
+
+            50% {
+                transform: rotate(3deg);
+            }
+        }
+
+        .animate-wiggle {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                transform: translate(2px, 2px);
+            }
+
+            80% {
+                transform: translate(2px, -2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        .animate-glitch {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .animate-slide {
+            animation: slide 2s linear infinite;
+        }
+
+        @keyframes stripe {
+            0% {
+                transform: translateX(-100%) rotate(-45deg);
+            }
+
+            100% {
+                transform: translateX(200%) rotate(-45deg);
+            }
+        }
+
+        .animate-stripe {
+            animation: stripe 2s linear infinite;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .animate-progress {
+            animation: progress 5s linear infinite;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fade-in 0.5s ease-out forwards;
+        }
+
+        /* Submenu */
+        .submenu-btn.active {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <!-- Submenu -->
+    <div class="fixed top-0 left-0 w-64 h-full bg-gray-800/80 shadow-lg border-r border-gray-700/50 z-50">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold text-indigo-300 mb-8 animate-float">Error Matrix</h2>
+            <ul class="space-y-4">
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-gray-700 hover:bg-gray-600 text-indigo-300 hover:text-indigo-200 transition duration-300"
+                        data-page="error-404">404</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-gray-700 hover:bg-gray-600 text-red-300 hover:text-red-200 transition duration-300"
+                        data-page="error-403">403</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-gray-200 transition duration-300"
+                        data-page="error-500">500</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-gray-700 hover:bg-gray-600 text-yellow-300 hover:text-yellow-200 transition duration-300"
+                        data-page="error-503">503</button></li>
+                <li><button
+                        class="submenu-btn w-full text-left py-3 px-6 rounded-lg bg-gray-700 hover:bg-gray-600 text-green-300 hover:text-green-200 transition duration-300"
+                        data-page="error-422">422</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Error Pages -->
+    <div class="ml-64 relative min-h-screen">
+        <!-- 404 Page Not Found -->
+        <div class="error-page hidden min-h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-404">
+            <canvas class="absolute inset-0 pointer-events-none" id="starfield-404"></canvas>
+            <svg class="w-32 h-32 text-indigo-300 mb-4 transform hover:scale-110 transition duration-300 cursor-pointer animate-float"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24" onclick="playSound('whoosh')">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h1 class="text-9xl font-extrabold text-white tracking-widest animate-bounce">404</h1>
+            <div class="bg-indigo-500 px-2 text-sm rounded rotate-12 absolute transform hover:-rotate-12 transition duration-300 cursor-pointer animate-wiggle"
+                onclick="triggerConfetti()">
+                <span class="text-white">Page Not Found</span>
+            </div>
+            <p class="text-2xl md:text-3xl text-gray-300 mt-8 animate-pulse">Lost in the Digital Galaxy?</p>
+            <p class="mt-4 text-gray-400 max-w-md text-center">This page has been abducted by aliens or never existed
+            </p>
+            <div class="mt-8 flex space-x-4">
+                <a href="/"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                    onclick="playSound('click')">Warp Home</a>
+                <button onclick="history.back(); playSound('whoosh')"
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Reverse
+                    Time</button>
+            </div>
+        </div>
+
+        <!-- 403 Forbidden -->
+        <div class="error-page hidden min-h-screen bg-red-900 flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-403">
+            <div class="absolute inset-0 bg-gradient-to-br from-red-900 to-red-800 opacity-75 overflow-hidden">
+                <div class="w-full h-12 bg-red-700 transform -rotate-45 absolute animate-stripe"
+                    style="top: -20%; left: -50%;"></div>
+                <div class="w-full h-12 bg-red-700 transform -rotate-45 absolute animate-stripe"
+                    style="top: 20%; left: -50%; animation-delay: 0.5s;"></div>
+            </div>
+            <svg class="w-32 h-32 text-red-300 mb-4 animate-spin-slow cursor-pointer" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" onclick="playSound('alert')">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            </svg>
+            <div class="relative">
+                <h1 class="text-9xl font-extrabold text-white tracking-widest animate-pulse">403</h1>
+                <div class="bg-red-500 px-2 text-sm rounded -rotate-12 absolute top-0 right-0 transform hover:scale-110 transition duration-300 cursor-pointer animate-wiggle"
+                    onclick="playSound('denied')">
+                    <span class="text-white">Forbidden</span>
+                </div>
+            </div>
+            <p class="text-2xl md:text-3xl text-red-200 mt-8 animate-bounce">Access Denied!</p>
+            <p class="mt-4 text-red-300 max-w-md text-center">This zone is guarded by digital sentinels</p>
+            <a href="/"
+                class="mt-8 inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:rotate-2 hover:shadow-xl"
+                onclick="playSound('click')">Flee to Safety</a>
+        </div>
+
+        <!-- 500 Internal Server Error -->
+        <div class="error-page hidden min-h-screen bg-gray-800 flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-500">
+            <canvas class="absolute inset-0 pointer-events-none" id="matrix-500"></canvas>
+            <svg class="w-32 h-32 text-gray-300 mb-4 animate-wiggle cursor-pointer" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" onclick="playSound('error')">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <h1 class="text-9xl font-extrabold text-white tracking-widest animate-glitch">500</h1>
+            <p class="text-2xl md:text-3xl text-gray-300 mt-8">Server Apocalypse!</p>
+            <p class="mt-4 text-gray-400 max-w-md text-center">Our digital realm has collapsed. Reboot in progress!</p>
+            <div class="mt-8 flex space-x-4">
+                <a href="/"
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                    onclick="playSound('click')">Abandon Ship</a>
+                <button onclick="location.reload(); playSound('reload')"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Reboot</button>
+            </div>
+        </div>
+
+        <!-- 503 Service Unavailable -->
+        <div class="error-page hidden min-h-screen bg-yellow-900 flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-503">
+            <div class="absolute inset-0 opacity-30">
+                <svg class="w-24 h-24 text-yellow-500 absolute animate-spin-slow" style="top: 10%; left: 10%;"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                </svg>
+                <svg class="w-16 h-16 text-yellow-400 absolute animate-spin" style="bottom: 15%; right: 15%;"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                </svg>
+            </div>
+            <svg class="w-32 h-32 text-yellow-300 mb-4 animate-spin cursor-pointer" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" onclick="playSound('gear')">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <div class="relative">
+                <h1 class="text-9xl font-extrabold text-white tracking-widest animate-pulse">503</h1>
+                <div class="bg-yellow-500 px-2 text-sm rounded rotate-6 absolute bottom-0 right-0 transform hover:-rotate-6 transition duration-300 cursor-pointer animate-wiggle"
+                    onclick="playSound('hammer')">
+                    <span class="text-white">Service Unavailable</span>
+                </div>
+            </div>
+            <p class="text-2xl md:text-3xl text-yellow-200 mt-8">Under Heavy Maintenance</p>
+            <p class="mt-4 text-yellow-300 max-w-md text-center">Our tech wizards are casting upgrade spells</p>
+            <div class="mt-8 flex flex-col items-center space-y-4">
+                <div class="w-64 h-2 bg-yellow-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-yellow-500 animate-progress"></div>
+                </div>
+                <a href="/"
+                    class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-xl"
+                    onclick="playSound('click')">Portal Home</a>
+            </div>
+        </div>
+
+        <!-- 422 Unprocessable Entity -->
+        <div class="error-page hidden min-h-screen bg-green-900 flex flex-col justify-center items-center px-4 relative overflow-hidden"
+            id="error-422">
+            <canvas class="absolute inset-0 pointer-events-none" id="matrix-422"></canvas>
+            <svg class="w-32 h-32 text-green-300 mb-4 animate-wiggle cursor-pointer" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" onclick="playSound('error')">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 9v2m0 4h.01M9.172 15.829a4 4 0 115.656-5.656M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div class="relative">
+                <h1 class="text-9xl font-extrabold text-white tracking-widest animate-glitch">422</h1>
+                <div class="bg-green-500 px-2 text-sm rounded rotate-12 absolute top-0 right-0 transform hover:-rotate-12 transition duration-300 cursor-pointer animate-wiggle"
+                    onclick="triggerConfetti()">
+                    <span class="text-white">Unprocessable Entity</span>
+                </div>
+            </div>
+            <p class="text-2xl md:text-3xl text-green-200 mt-8 animate-pulse">Data Corruption!</p>
+            <p class="mt-4 text-green-300 max-w-md text-center">The system choked on invalid input</p>
+            <div class="mt-8 flex space-x-4">
+                <a href="/"
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                    onclick="playSound('click')">Reset Input</a>
+                <button onclick="history.back(); playSound('whoosh')"
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Revert</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Submenu Logic
+        const submenuButtons = document.querySelectorAll('.submenu-btn');
+        const errorPages = document.querySelectorAll('.error-page');
+
+        submenuButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetPage = button.getAttribute('data-page');
+                errorPages.forEach(page => page.classList.add('hidden'));
+                submenuButtons.forEach(btn => btn.classList.remove('active'));
+                const pageToShow = document.getElementById(targetPage);
+                pageToShow.classList.remove('hidden');
+                pageToShow.classList.add('fade-in');
+                button.classList.add('active');
+                setTimeout(() => pageToShow.classList.remove('fade-in'), 500);
+            });
+        });
+
+        // Show 404 by default
+        document.getElementById('error-404').classList.remove('hidden');
+        document.querySelector('[data-page="error-404"]').classList.add('active');
+
+        // Starfield for 404
+        const canvas404 = document.getElementById('starfield-404');
+        if (canvas404) {
+            const ctx404 = canvas404.getContext('2d');
+            canvas404.width = window.innerWidth;
+            canvas404.height = window.innerHeight;
+            const stars = Array(100).fill().map(() => ({
+                x: Math.random() * canvas404.width,
+                y: Math.random() * canvas404.height,
+                size: Math.random() * 2,
+                speed: Math.random() * 0.5
+            }));
+            function animateStars() {
+                ctx404.clearRect(0, 0, canvas404.width, canvas404.height);
+                stars.forEach(star => {
+                    ctx404.fillStyle = 'white';
+                    ctx404.beginPath();
+                    ctx404.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                    ctx404.fill();
+                    star.y += star.speed;
+                    if (star.y > canvas404.height) star.y = 0;
+                });
+                requestAnimationFrame(animateStars);
+            }
+            animateStars();
+        }
+
+        // Matrix Rain for 500 and 422
+        function setupMatrix(canvasId, color = '#0F0') {
+            const canvas = document.getElementById(canvasId);
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const chars = '01'.split('');
+                const fontSize = 16;
+                const columns = canvas.width / fontSize;
+                const drops = Array(Math.floor(columns)).fill(0);
+                function drawMatrix() {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = color;
+                    ctx.font = fontSize + 'px monospace';
+                    drops.forEach((y, i) => {
+                        const text = chars[Math.floor(Math.random() * chars.length)];
+                        ctx.fillText(text, i * fontSize, y * fontSize);
+                        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                        drops[i]++;
+                    });
+                    requestAnimationFrame(drawMatrix);
+                }
+                drawMatrix();
+            }
+        }
+        setupMatrix('matrix-500');
+        setupMatrix('matrix-422', '#00FF00');
+
+        // Sound Effects
+        const sounds = {
+            whoosh: new Audio('https://www.myinstants.com/media/sounds/swoosh.mp3'),
+            click: new Audio('https://www.myinstants.com/media/sounds/click.mp3'),
+            alert: new Audio('https://www.myinstants.com/media/sounds/alert.mp3'),
+            denied: new Audio('https://www.myinstants.com/media/sounds/access-denied.mp3'),
+            error: new Audio('https://www.myinstants.com/media/sounds/error.mp3'),
+            reload: new Audio('https://www.myinstants.com/media/sounds/reload.mp3'),
+            gear: new Audio('https://www.myinstants.com/media/sounds/gear.mp3'),
+            hammer: new Audio('https://www.myinstants.com/media/sounds/hammer.mp3')
+        };
+        function playSound(sound) {
+            sounds[sound]?.play();
+        }
+
+        // Confetti
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#4F46E5', '#818CF8', '#C7D2FE']
+            });
+        }
+    </script>
+</body>
+
+</html>

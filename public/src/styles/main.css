@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bokor&family=Bungee&family=Dangrek&family=Fugaz+One&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lilita+One&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Russo+One&family=Spicy+Rice&display=swap");
+body {
+    font-family: "Poppins", sans-serif;
+}
+main::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+main::-webkit-scrollbar-thumb {
+    background-color: #0d9488;
+    border-radius: 3px;
+}
+
+main::-webkit-scrollbar-track {
+    background-color: #ccfbf1;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    background-color: #0d9488;
+    border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+    background-color: #ccfbf1;
+}
+
+.overflow-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.overflow-scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 3px;
+}
+
+.overflow-scroll::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Ensure the sidebar is visible by default on larger screens */
+.aside {
+    font-family: "Bokor", system-ui;
+    transition: transform 0.3s ease-in-out;
+}
+.showing__data,
+.khmer__font {
+    font-family: "Dangrek", sans-serif;
+}
+header,
+.kh_calendar_time,
+canvas {
+    font-family: "Bokor", system-ui;
+}
+
+.submenu {
+    max-height: 0;
+    position: relative;
+}
+
+.submenu:not(.hidden) {
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Vertical line for submenu */
+.submenu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15px;
+    background-color: #0d9488;
+    width: 3px;
+    height: 100%;
+    z-index: 11;
+}
+
+/* Horizontal lines for each submenu item */
+.submenu li {
+    position: relative;
+}
+
+.submenu li a::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    background-color: #0d9488;
+    width: 20px;
+    height: 3px;
+    transform: translateY(-50%);
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+}
+
+/* Remove shadow and background from submenu */
+/* .submenu {
+  background: none;
+  box-shadow: none;
+} */
+
+/* Adjust submenu item padding and spacing */
+.submenu li a {
+    margin-left: 40px;
+    padding-right: 10px;
+}
+
+.submenu:not(.hidden) {
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Desktop view: always show sidebar */
+@media (min-width: 1024px) {
+    .aside {
+        transform: translateX(0);
+        position: relative;
+    }
+
+    #toggleSidebar {
+        display: none;
+        /* Hide toggle button on desktop */
+    }
+}
+
+@media (max-width: 1024px) {
+    .aside {
+        transform: translateX(-100%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 20;
+    }
+
+    .aside.open {
+        transform: translateX(0);
+    }
+}
+
+/* Mobile view: hide sidebar by default */
+@media (max-width: 768px) {
+    .aside {
+        transform: translateX(-100%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 20;
+    }
+
+    .aside.open {
+        transform: translateX(0);
+    }
+
+    .header__btn__search {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .search__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 550px) {
+    .pagination__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .pagination__num {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 375px) {
+    .box__search {
+        width: 100px;
+    }
+}

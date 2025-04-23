@@ -1,0 +1,211 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes spin-slow {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 4s linear infinite;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(-3deg);
+            }
+
+            50% {
+                transform: rotate(3deg);
+            }
+        }
+
+        .animate-wiggle {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                transform: translate(2px, 2px);
+            }
+
+            80% {
+                transform: translate(2px, -2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        .animate-glitch {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .animate-slide {
+            animation: slide 2s linear infinite;
+        }
+
+        .glitch:before {
+            content: attr(data-text);
+            position: absolute;
+            color: #fff;
+            opacity: 0.4;
+            animation: glitch 0.3s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 404 Page Not Found -->
+    <div class="min-h-screen bg-gray-900 flex flex-col justify-center items-center px-4 relative overflow-hidden">
+        <!-- Background Particles -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="w-1 h-1 bg-indigo-500 rounded-full absolute animate-float" style="top: 20%; left: 30%;"></div>
+            <div class="w-2 h-2 bg-indigo-400 rounded-full absolute animate-float"
+                style="top: 60%; left: 70%; animation-delay: 1s;"></div>
+            <div class="w-1 h-1 bg-indigo-600 rounded-full absolute animate-float"
+                style="top: 40%; left: 10%; animation-delay: 2s;"></div>
+        </div>
+        <svg class="w-32 h-32 text-indigo-300 mb-4 transform hover:scale-110 transition duration-300" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h1 class="text-9xl font-extrabold text-white tracking-widest animate-bounce">404</h1>
+        <div
+            class="bg-indigo-500 px-2 text-sm rounded rotate-12 absolute transform hover:-rotate-12 transition duration-300">
+            <span class="text-white">Page Not Found</span>
+        </div>
+        <p class="text-2xl md:text-3xl text-gray-300 mt-8 animate-pulse">Oops! Lost in the digital cosmos?</p>
+        <p class="mt-4 text-gray-400 max-w-md text-center">The page you're seeking has vanished into the void or never
+            existed</p>
+        <div class="mt-8 flex space-x-4">
+            <a href="/"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">Beam
+                Me Home</a>
+            <button onclick="history.back()"
+                class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">Go
+                Back</button>
+        </div>
+    </div>
+
+    <!-- 403 Forbidden -->
+    <div class="min-h-screen bg-red-900 flex flex-col justify-center items-center px-4 relative overflow-hidden">
+        <!-- Background Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-red-900 to-red-800 opacity-75"></div>
+        <svg class="w-32 h-32 text-red-300 mb-4 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+        </svg>
+        <div class="relative">
+            <h1 class="text-9xl font-extrabold text-white tracking-widest animate-pulse">403</h1>
+            <div
+                class="bg-red-500 px-2 text-sm rounded -rotate-12 absolute top-0 right-0 transform hover:scale-110 transition duration-300">
+                <span class="text-white">Forbidden</span>
+            </div>
+        </div>
+        <p class="text-2xl md:text-3xl text-red-200 mt-8">Access Denied!</p>
+        <p class="mt-4 text-red-300 max-w-md text-center">This area is restricted. You shall not pass!</p>
+        <a href="/"
+            class="mt-8 inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:rotate-2">Retreat
+            to Safety</a>
+    </div>
+
+    <!-- 500 Internal Server Error -->
+    <div class="min-h-screen bg-gray-800 flex flex-col justify-center items-center px-4 relative overflow-hidden">
+        <!-- Glitch Effect Background -->
+        <div class="absolute inset-0 bg-gray-800 glitch" data-text="ERROR"></div>
+        <svg class="w-32 h-32 text-gray-300 mb-4 animate-wiggle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <h1 class="text-9xl font-extrabold text-white tracking-widest animate-glitch">500</h1>
+        <p class="text-2xl md:text-3xl text-white mt-8">System Meltdown!</p>
+        <p class="mt-4 text-gray-400 max-w-md text-center">Our servers are throwing a tantrum. Engineers are on it!</p>
+        <div class="mt-8 flex space-x-4">
+            <a href="/"
+                class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">Escape</a>
+            <button onclick="location.reload()"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">Retry</button>
+        </div>
+    </div>
+
+    <!-- 503 Service Unavailable -->
+    <div class="min-h-screen bg-yellow-900 flex flex-col justify-center items-center px-4 relative overflow-hidden">
+        <!-- Construction Lines -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="w-full h-1 bg-yellow-500 animate-slide"></div>
+            <div class="w-full h-1 bg-yellow-500 animate-slide" style="top: 50%; animation-delay: 0.5s;"></div>
+        </div>
+        <svg class="w-32 h-32 text-yellow-300 mb-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        <div class="relative">
+            <h1 class="text-9xl font-extrabold text-white tracking-widest animate-pulse">503</h1>
+            <div
+                class="bg-yellow-500 px-2 text-sm rounded rotate-6 absolute bottom-0 right-0 transform hover:-rotate-6 transition duration-300">
+                <span class="text-white">Service Unavailable</span>
+            </div>
+        </div>
+        <p class="text-2xl md:text-3xl text-yellow-200 mt-8">Under Construction</p>
+        <p class="mt-4 text-yellow-300 max-w-md text-center">We're hammering away at improvements. Back soon!</p>
+        <div class="mt-8 flex flex-col items-center space-y-4">
+            <div class="w-16 h-16 border-4 border-dashed border-white rounded-full animate-spin-slow"></div>
+            <a href="/"
+                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">Return
+                Home</a>
+        </div>
+    </div>
+</body>
+</html>

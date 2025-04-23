@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Page</title>
+    <link rel="stylesheet" href="../../styles/auth.css">
+</head>
+
+<body class="min-h-screen bg-white">
+    <div class=" grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
+        <div class="flex items-center justify-center h-[100vh] rounded bg-white p-10">
+            <div class="flex flex-col w-[400px]">
+                <h1 class="text-4xl text-gray-600 mt-1 mb-3">ស្វាគមន៍</h1>
+                <p class="text-gray-400 mb-3">សូមស្វាគមន៍ សូមបញ្ចូលព័ត៌មានលម្អិត</p>
+                <form action="">
+                    <label for="fullname">
+                        <span class="text-sm font-medium text-gray-700"> ឈ្មោះពេញ *</span>
+                        <div class="relative">
+                            <input type="text" id="fullname" placeholder="បញ្ចូលឈ្មោះពេញ"
+                                class="mt-0.5 mb-5 bg-[#F9F9F9] w-full rounded-[8px] border-gray-200 px-3 h-10 text-sm shadow mt-1 border-none sm:text-sm focus:outline-none focus:ring-teal-500 focus:ring-2" />
+                        </div>
+                    </label>
+                    <label for="email">
+                        <span class="text-sm font-medium text-gray-700"> អ៊ីម៉ែល * </span>
+                        <div class="relative">
+                            <input type="text" id="email" placeholder="បញ្ចូលអ៊ីម៉ែល"
+                                class="mt-0.5 mb-5 bg-[#F9F9F9] w-full rounded-[8px] border-gray-200 px-3 h-10 text-sm shadow mt-1 border-none sm:text-sm focus:outline-none focus:ring-teal-500 focus:ring-2" />
+                        </div>
+                    </label>
+                    <label for="password">
+                        <span class="text-sm font-medium text-gray-700"> លេខទូរសព្ទ * </span>
+                        <div class="relative">
+                            <input type="password" id="password" placeholder="បញ្ចូលលេខសម្ងាត់"
+                                class="mt-0.5 mb-5 bg-[#F9F9F9] w-full rounded-[8px] border-gray-200 px-3 h-10 text-sm shadow mt-1 border-none sm:text-sm focus:outline-none focus:ring-teal-500 focus:ring-2" />
+                        </div>
+                    </label>
+                    <button
+                        class="flex items-center justify-center rounded-md w-full bg-teal-600 mt-2 px-4 h-10 text-sm drop-shadow font-medium text-white transition hover:scale-110 hover:shadow-xl focus:ring-3 focus:outline-hidden"
+                        href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" class="mr-1" width="20" height="20"
+                            stroke-width="1.5">
+                            <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"></path>
+                            <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                            <path d="M14 4l0 4l-6 0l0 -4"></path>
+                        </svg>
+                        បង្កើត
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="flex items-center justify-center w-full h-full rounded bg-gray-100">
+            <img src="../../assets/images/login.jpg" class="object-cover w-full h-full" alt="">
+        </div>
+    </div>
+</body>
+<!-- Tailwind CDN link -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Chart CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Customer Js -->
+<script src="../../scripts/app.js"></script>
+
+</html>
